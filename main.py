@@ -1,10 +1,7 @@
 import numpy as np
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, jsonify, request
 import skops.io as sio
 from lightgbm import LGBMClassifier
-from pandas import DataFrame
-from rich.jupyter import display
-from sklearn.feature_extraction import DictVectorizer
 
 app = Flask(__name__)
 model = sio.load('final_model_GBM.skops', trusted=True)
