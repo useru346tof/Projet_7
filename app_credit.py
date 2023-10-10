@@ -1,5 +1,5 @@
 import numpy as np
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, config
 import skops.io as sio
 from lightgbm import LGBMClassifier
 
@@ -8,8 +8,8 @@ model = sio.load('final_model_GBM.skops', trusted=True)
 tresh = 0.42
 
 
-def transform_data(dict):
-    result = dict.values()
+def transform_data(dictionnaire):
+    result = dictionnaire.values()
     # Convert object to a list
     data = list(result)
     # Convert list to an array
@@ -24,12 +24,14 @@ def allow_credit():
     transformed = transform_data(args)
 
     result_proba = model.predict_proba(transformed)
-    if (result_proba[0,0]) < tresh:
+    result_proba = round(result_proba[0,0], 2)
+    print(result_proba)
+    if (result_proba) < tresh:
         granted = 'no'
     else:
         granted = 'yes'
     credit_prediction = {
-        'probability': result_proba[0,0],
+        'probability': result_proba,
         'credit_granted': granted,
         'credit_proba_limit': tresh
     }
