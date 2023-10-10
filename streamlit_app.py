@@ -1,6 +1,7 @@
 import requests
 import streamlit as st
 import pandas as pd
+import json
 
 st.title('Credit accordance prediction')
 df = pd.read_csv("test_dataframe.csv")
@@ -48,13 +49,15 @@ def is_married(new_index):
     return 'no'
 
 
-def get_credit_proba(new_index):
+
+def get_credit_proba(index = 0):
     # Our API ENDPoint
-    url = "http://127.0.0.1:8001/api/credit/"
-    payload = df.iloc[0].to_dict()
-    response = requests.get(url, params=payload)
-    # Print the response
-    response_json = response.json()
+    #url = "https://obscure-taiga-00950-2103a4620388.herokuapp.com/api/credit/"
+    url = "http://192.168.1.89:5000/api/credit"
+    #url = "http://0.0.0.0:5001/api/credit"
+    test_param_2 = df.iloc[index].to_dict()
+    response = requests.post(url, json=json.dumps(test_param_2))
+    response_json= response.json()
     return f'''**Credit should be granted:** {str(response_json['credit_granted'])}, found with a probability to be able to pay of {str(response_json['probability'])} , the treshold being {str(response_json['credit_proba_limit'])}'''
 
 
@@ -63,7 +66,6 @@ add_selectbox = st.sidebar.selectbox('label',
                                      index=0,
                                      key=None,
                                      help=None,
-                                     #on_change=get_credit_proba(),
                                      args=None,
                                      kwargs=None,
                                      placeholder="Choose an option",

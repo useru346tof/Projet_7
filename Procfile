@@ -1,1 +1,1 @@
-web: flask --app app_credit run -p 33507
+web: gunicorn app_credit:app
