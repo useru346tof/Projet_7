@@ -2,7 +2,7 @@ name: tests and deploy
 run-name: ${{ github.actor }} is testing out GitHub Actions
 on: [push]
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,8 +20,7 @@ jobs:
           pytest test_app_credit.py
           pytest test_app_credit.py  --junitxml=junit/test-results.xml
           
-          jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
