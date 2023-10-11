@@ -42,10 +42,11 @@ def allow_credit():
 
 @app.route('/api/credit/', methods=['POST'])
 def allow_credit_post():
-
     args = request.get_json()
-    args = json.loads(args)
-    args.pop('Unnamed: 0')
+    if type(args) is not dict:
+        args = json.loads(args)
+    if 'Unnamed: 0' in args:
+        args.pop('Unnamed: 0')
     transformed = transform_data(args)
     result_proba = model.predict_proba(transformed)
     result_proba = round(result_proba[0,0], 2)

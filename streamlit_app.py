@@ -52,12 +52,13 @@ def is_married(new_index):
 
 def get_credit_proba(index = 0):
     # Our API ENDPoint
-    #url = "https://obscure-taiga-00950-2103a4620388.herokuapp.com/api/credit/"
-    url = "http://192.168.1.89:5000/api/credit"
+    url = "https://obscure-taiga-00950-2103a4620388.herokuapp.com/api/credit/"
+    #url = "http://192.168.1.89:5000/api/credit"
     #url = "http://0.0.0.0:5001/api/credit"
     test_param_2 = df.iloc[index].to_dict()
     response = requests.post(url, json=json.dumps(test_param_2))
     response_json= response.json()
+    st.markdown(json.dumps(test_param_2))
     return f'''**Credit should be granted:** {str(response_json['credit_granted'])}, found with a probability to be able to pay of {str(response_json['probability'])} , the treshold being {str(response_json['credit_proba_limit'])}'''
 
 
