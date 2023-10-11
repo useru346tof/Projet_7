@@ -18,27 +18,6 @@ def transform_data(dictionnaire):
     transformed_data = numpyArray.reshape(1,-1).astype('float64')
     return transformed_data
 
-'''
-@app.route('/api/credit/', methods=['GET'])
-def allow_credit():
-    args = request.args.to_dict()
-    #args.pop('Unnamed: 0')
-    transformed = transform_data(args)
-    result_proba = model.predict_proba(transformed)
-    result_proba = round(result_proba[0,0], 2)
-    print(result_proba)
-    if (result_proba) < tresh:
-        granted = 'no'
-    else:
-        granted = 'yes'
-    credit_prediction = {
-        'probability': result_proba,
-        'credit_granted': granted,
-        'credit_proba_limit': tresh
-    }
-    return Response(credit_prediction, status=200, mimetype='application/json')
-'''
-
 
 @app.route('/api/credit/', methods=['POST'])
 def allow_credit_post():

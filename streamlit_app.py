@@ -58,7 +58,6 @@ def get_credit_proba(index = 0):
     test_param_2 = df.iloc[index].to_dict()
     response = requests.post(url, json=json.dumps(test_param_2))
     response_json= response.json()
-    st.markdown(json.dumps(test_param_2))
     return f'''**Credit should be granted:** {str(response_json['credit_granted'])}, found with a probability to be able to pay of {str(response_json['probability'])} , the treshold being {str(response_json['credit_proba_limit'])}'''
 
 

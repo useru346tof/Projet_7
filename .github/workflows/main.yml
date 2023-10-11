@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: tests and deploy
 run-name: ${{ github.actor }} is testing out GitHub Actions
 on: [push]
 jobs:
@@ -19,3 +19,15 @@ jobs:
           pip install pytest 
           pytest test_app_credit.py
           pytest test_app_credit.py  --junitxml=junit/test-results.xml
+          
+          jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.14
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "obscure-taiga-00950"
+          heroku_email: "maxence.vandoolaeghe@yahoo.fr"
+          
