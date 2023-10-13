@@ -19,7 +19,7 @@ jobs:
           pip install pytest 
           pytest test_app_credit.py
           pytest test_app_credit.py  --junitxml=junit/test-results.xml
-          
+
   deploy:
     runs-on: ubuntu-latest
     steps:

@@ -7,7 +7,7 @@ from lightgbm import LGBMClassifier
 
 app = Flask(__name__)
 model = sio.load('final_model_GBM.skops', trusted=True)
-tresh = 0.42
+tresh = 0.54
 
 def transform_data(dictionnaire):
     result = dictionnaire.values()

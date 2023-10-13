@@ -19,25 +19,25 @@ def test_transformed_data_ok_2():
     assert np.testing.assert_array_equal(transform_data(TEST_DICTIONNAIRE), RESULT_TEST_DICT) == None
 
 
-def test_post(app, client):
+def test_post_refused(app, client):
     test_body = df.iloc[0].to_dict()
     res = client.post(URL_POST, data=json.dumps(test_body), content_type='application/json')
     assert res.status_code == 200
-    expected = {'credit_granted': 'yes',
-                'credit_proba_limit': 0.42,
-                'probability': 0.5
+    expected = {'credit_granted': 'no',
+                'credit_proba_limit': 0.54,
+                'probability': 0.42
                 }
 
     assert expected == json.loads(res.get_data(as_text=True))
 
 
-def test_post_refused(app, client):
-    test_body = df.iloc[2].to_dict()
+def test_post(app, client):
+    test_body = df.iloc[4].to_dict()
     res = client.post(URL_POST, data=json.dumps(test_body), content_type='application/json')
     assert res.status_code == 200
-    expected = {'credit_granted': 'no',
-                'credit_proba_limit': 0.42,
-                'probability': 0.26
+    expected = {'credit_granted': 'yes',
+                'credit_proba_limit': 0.54,
+                'probability': 0.88
                 }
 
     assert expected == json.loads(res.get_data(as_text=True))
